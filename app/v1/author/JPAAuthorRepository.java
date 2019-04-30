@@ -63,7 +63,7 @@ public class JPAAuthorRepository implements AuthorRepository {
     }
 
     private Stream<AuthorData> select(EntityManager em) {
-        TypedQuery<AuthorData> query = em.createQuery("SELECT p FROM PostData p", AuthorData.class);
+        TypedQuery<AuthorData> query = em.createQuery("SELECT p FROM AuthorData p", AuthorData.class);
         return query.getResultList().stream();
     }
 

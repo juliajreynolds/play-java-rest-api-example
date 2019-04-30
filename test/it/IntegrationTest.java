@@ -40,7 +40,7 @@ public class IntegrationTest extends WithApplication {
         assertThat(body, containsString("body"));
     }
 
-   /* @Test
+   @Test
     public void testListAuthors() {
         AuthorRepository repository = app.injector().instanceOf(AuthorRepository.class);
         repository.create(new AuthorData("name", "blurb"));
@@ -52,7 +52,7 @@ public class IntegrationTest extends WithApplication {
         Result result = route(app, request);
         final String body = contentAsString(result);
         assertThat(body, containsString("blurb"));
-    }*/
+    }
 
     @Test
     public void testTimeoutOnUpdate() {

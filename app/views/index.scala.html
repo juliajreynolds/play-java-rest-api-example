@@ -17,8 +17,12 @@
 
       <p>
           To generate some starting data run the following using the <a href="https://httpie.org/">httpie</a> tool to post JSON:<br/>
-          http POST localhost:9000/v1/posts title="Cooking with Julia" body="vegetarian recipes"<br/>
+          Posts:<br/>
+          http POST localhost:9000/v1/posts title="Cooking with Julia" body="Vegetarian recipes."<br/>
           http POST localhost:9000/v1/posts title="Hiring 101" body="Hire Julia"<br/>
+          Authors:<br/>
+          http POST localhost:9000/v1/authors name="Steven King" body="He writes scary books."<br/>
+          http POST localhost:9000/v1/authors name="Joshua Block" body="He writes good Java books."<br/>
 
       </p>
 
