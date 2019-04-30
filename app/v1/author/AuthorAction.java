@@ -1,4 +1,4 @@
-package v1.post;
+package v1.author;
 
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
@@ -21,8 +21,8 @@ import static com.codahale.metrics.MetricRegistry.name;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static play.mvc.Http.Status.*;
 
-public class PostAction extends play.mvc.Action.Simple {
-    private final Logger.ALogger logger = play.Logger.of("application.AuthorAction");
+public class AuthorAction extends play.mvc.Action.Simple {
+    private final Logger.ALogger logger = Logger.of("application.AuthorAction");
 
     private final Meter requestsMeter;
     private final Timer responsesTimer;
@@ -31,11 +31,11 @@ public class PostAction extends play.mvc.Action.Simple {
 
     @Singleton
     @Inject
-    public PostAction(MetricRegistry metrics, HttpExecutionContext ec, Futures futures) {
+    public AuthorAction(MetricRegistry metrics, HttpExecutionContext ec, Futures futures) {
         this.ec = ec;
         this.futures = futures;
         this.requestsMeter = metrics.meter("requestsMeter");
-        this.responsesTimer = metrics.timer(name(PostAction.class, "responsesTimer"));
+        this.responsesTimer = metrics.timer(name(AuthorAction.class, "responsesTimer"));
     }
 
     public CompletionStage<Result> call(Http.Context ctx) {

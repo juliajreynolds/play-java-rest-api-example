@@ -4,36 +4,31 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Play REST API</title>
+    <title>Play REST API - Julia Reynolds</title>
   </head>
 
   <body>
-    <h1>Play REST API</h1>
-
-    <p>
-      This is a placeholder page to show you the REST API.  Use <a href="https://httpie.org/">httpie</a> to post JSON to the application.
-    </p>
-
-    <p>
-      To see all posts, you can do a GET:
-    </p>
+    <h1>Play REST API - A coding sample from Julia Reynolds</h1>
 
 
-<pre>
-    <code>http GET localhost:9000/v1/posts</code>
-</pre>
+      Per your instructions:
+      <i>The example application has the concept of “blog posts”. Extend your application to support the concept of “authors”, including a new endpoint that displays a small blurb about the author of the blog posts. Unit tests and supporting documentation are encouraged.</i>
 
-    <p>
-      To create new posts, do a post
-    <p>
 
-<pre>
-    <code>http POST localhost:9000/v1/posts title="Some title" body="Some Body"</code>
-</pre>
+      <p>
+          To generate some starting data run the following using the <a href="https://httpie.org/">httpie</a> tool to post JSON:<br/>
+          http POST localhost:9000/v1/posts title="Cooking with Julia" body="vegetarian recipes"<br/>
+          http POST localhost:9000/v1/posts title="Hiring 101" body="Hire Julia"<br/>
+
+      </p>
 
 <p>
-  You can always look at the API directly: <a href="/v1/posts">/v1/posts</a>
+  To view the API directly:
+      <ul>
+      <li><a href="/v1/authors">/v1/authors</a></li>
+      <li><a href="/v1/posts">/v1/posts</a></li>
+    </ul>
 </p>
-
+      <a href="http://www.cornify.com" onclick="cornify_add();return false;" title="Click for a Bonus">Click for a Bonus</a><script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
   </body>
 </html>

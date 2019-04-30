@@ -1,4 +1,4 @@
-package v1.post;
+package v1.author;
 
 import net.jodah.failsafe.CircuitBreaker;
 import net.jodah.failsafe.Failsafe;
@@ -21,63 +21,63 @@ import static java.util.concurrent.CompletableFuture.supplyAsync;
  * and circuit breaker.
  */
 @Singleton
-public class JPAPostRepository implements PostRepository {
+public class JPAAuthorRepository implements AuthorRepository {
 
     private final JPAApi jpaApi;
-    private final PostExecutionContext ec;
+    private final AuthorExecutionContext ec;
     private final CircuitBreaker circuitBreaker = new CircuitBreaker().withFailureThreshold(1).withSuccessThreshold(3);
 
     @Inject
-    public JPAPostRepository(JPAApi api, PostExecutionContext ec) {
+    public JPAAuthorRepository(JPAApi api, AuthorExecutionContext ec) {
         this.jpaApi = api;
         this.ec = ec;
     }
 
     @Override
-    public CompletionStage<Stream<PostData>> list() {
+    public CompletionStage<Stream<AuthorData>> list() {
         return supplyAsync(() -> wrap(em -> select(em)), ec);
     }
 
     @Override
-    public CompletionStage<PostData> create(PostData postData) {
-        return supplyAsync(() -> wrap(em -> insert(em, postData)), ec);
+    public CompletionStage<AuthorData> create(AuthorData authorData) {
+        return supplyAsync(() -> wrap(em -> insert(em, authorData)), ec);
     }
 
     @Override
-    public CompletionStage<Optional<PostData>> get(Long id) {
+    public CompletionStage<Optional<AuthorData>> get(Long id) {
         return supplyAsync(() -> wrap(em -> Failsafe.with(circuitBreaker).get(() -> lookup(em, id))), ec);
     }
 
     @Override
-    public CompletionStage<Optional<PostData>> update(Long id, PostData postData) {
-        return supplyAsync(() -> wrap(em -> Failsafe.with(circuitBreaker).get(() -> modify(em, id, postData))), ec);
+    public CompletionStage<Optional<AuthorData>> update(Long id, AuthorData authorData) {
+        return supplyAsync(() -> wrap(em -> Failsafe.with(circuitBreaker).get(() -> modify(em, id, authorData))), ec);
     }
 
     private <T> T wrap(Function<EntityManager, T> function) {
         return jpaApi.withTransaction(function);
     }
 
-    private Optional<PostData> lookup(EntityManager em, Long id) throws SQLException {
+    private Optional<AuthorData> lookup(EntityManager em, Long id) throws SQLException {
         throw new SQLException("Call this to cause the circuit breaker to trip");
         //return Optional.ofNullable(em.find(AuthorData.class, id));
     }
 
-    private Stream<PostData> select(EntityManager em) {
-        TypedQuery<PostData> query = em.createQuery("SELECT p FROM PostData p", PostData.class);
+    private Stream<AuthorData> select(EntityManager em) {
+        TypedQuery<AuthorData> query = em.createQuery("SELECT p FROM PostData p", AuthorData.class);
         return query.getResultList().stream();
     }
 
-    private Optional<PostData> modify(EntityManager em, Long id, PostData postData) throws InterruptedException {
-        final PostData data = em.find(PostData.class, id);
+    private Optional<AuthorData> modify(EntityManager em, Long id, AuthorData authorData) throws InterruptedException {
+        final AuthorData data = em.find(AuthorData.class, id);
         if (data != null) {
-            data.title = postData.title;
-            data.body = postData.body;
+            data.name = authorData.name;
+            data.blurb = authorData.blurb;
         }
         Thread.sleep(10000L);
         return Optional.ofNullable(data);
     }
 
-    private PostData insert(EntityManager em, PostData postData) {
-        return em.merge(postData);
+    private AuthorData insert(EntityManager em, AuthorData authorData) {
+        return em.merge(authorData);
     }
 }

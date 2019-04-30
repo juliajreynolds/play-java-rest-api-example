@@ -1,0 +1,6 @@
+
+GET    /                     v1.author.AuthorController.list
+POST   /                     v1.author.AuthorController.create
+
+GET    /:id                 v1.author.AuthorController.show(id)
+PUT    /:id                 v1.author.AuthorController.update(id)

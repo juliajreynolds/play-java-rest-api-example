@@ -1,0 +1,2 @@
+http POST localhost:9000/v1/posts title="Cooking with Julia" body="vegetarian recipes"
+http POST localhost:9000/v1/posts title="Hiring 101" body="Hire Julia"

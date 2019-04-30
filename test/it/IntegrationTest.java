@@ -8,6 +8,8 @@ import play.libs.Json;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.test.WithApplication;
+import v1.author.AuthorData;
+import v1.author.AuthorRepository;
 import v1.post.PostData;
 import v1.post.PostRepository;
 import v1.post.PostResource;
@@ -25,7 +27,7 @@ public class IntegrationTest extends WithApplication {
     }
 
     @Test
-    public void testList() {
+    public void testListPosts() {
         PostRepository repository = app.injector().instanceOf(PostRepository.class);
         repository.create(new PostData("title", "body"));
 
@@ -37,6 +39,20 @@ public class IntegrationTest extends WithApplication {
         final String body = contentAsString(result);
         assertThat(body, containsString("body"));
     }
+
+   /* @Test
+    public void testListAuthors() {
+        AuthorRepository repository = app.injector().instanceOf(AuthorRepository.class);
+        repository.create(new AuthorData("name", "blurb"));
+
+        Http.RequestBuilder request = new Http.RequestBuilder()
+                .method(GET)
+                .uri("/v1/authors");
+
+        Result result = route(app, request);
+        final String body = contentAsString(result);
+        assertThat(body, containsString("blurb"));
+    }*/
 
     @Test
     public void testTimeoutOnUpdate() {
