@@ -1,5 +1,7 @@
 package v1.post;
 
+import v1.author.AuthorData;
+
 import javax.persistence.*;
 
 /**
@@ -22,4 +24,7 @@ public class PostData {
     public Long id;
     public String title;
     public String body;
+
+    @ManyToOne
+    public AuthorData authorData;
 }
